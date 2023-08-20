@@ -16,6 +16,7 @@ app.use(express.static("public"));
 app.use('/public/images/',express.static('./public/images'));
 
 mongoose.connect("mongodb://127.0.0.1:27017/pawpalDB");
+
   const postSchema = {
     title : String,
     content: String,
@@ -41,19 +42,6 @@ app.get("/blog", function(req, res){
     
   });
 
-app.post("/blog", function(req, res){
-  
-    const post = new Post ({
-      title: req.body.postTitle,
-      content: req.body.postBody
-    });
-  
-    post.save();
-  
-    res.redirect("/blog");
-  
-});
-
 app.get('/terms',function(req,res){
     res.render('terms');
 });
@@ -75,11 +63,6 @@ app.post("/compose", function(req, res){
   
 });
 
-app.post('/',function(){
-    const fname=req.body.fname;
-    const lname=req.body.lname;
-    const email=req.body.email;
-});
 
 app.get('/posts/:postName',function(req,res){
 
@@ -92,10 +75,9 @@ app.get('/posts/:postName',function(req,res){
       }
     })
   });
-  
-    
+
 });
 
 app.listen(process.env.PORT || 3000, function(){
     console.log("Server started");
-  });
+});
